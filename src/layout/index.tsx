@@ -58,23 +58,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -146,7 +129,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {[{content:'HOME',subContent:[{data:'Programme Mngmt.'},{data:'Credit Rule'},{data:'Card Catalogue'}]}, {content:'DASHBOARD',subContent:[]}, {content:'PRODUCT MNGMT.',subContent:[]}, {content:'SALES',subContent:[]},{content:'APPLY CREDIT CARD',subContent:[]},{content:'USER MNGMT.',subContent:[]},{content:'LMS',subContent:[]},{content:'RISK MNGMT.',subContent:[]},{content:'ACCESS LIBRARY',subContent:[]}].map((text, index) => (
+          {[{content:'HOME',subContent:[]}, {content:'DASHBOARD',subContent:[]}, {content:'PRODUCT MNGMT.',subContent:[{data:'Programme Mngmt.'},{data:'Credit Rule'},{data:'Card Catalogue'}]}, {content:'SALES',subContent:[]},{content:'APPLY CREDIT CARD',subContent:[]},{content:'USER MNGMT.',subContent:[]},{content:'LMS',subContent:[]},{content:'RISK MNGMT.',subContent:[]},{content:'ACCESS LIBRARY',subContent:[]}].map((text, index) => (
             <ListItem key={text.content} disablePadding sx={{ display: 'block' }}>
           {  text.subContent.length === 0 && <ListItemButton
                 sx={{
@@ -176,7 +159,7 @@ export default function MiniDrawer() {
            { text.subContent.length > 0 && <>
             <ListItemButton onClick={handleClick}>
             <ListItemIcon>
-                <img src={Home}/>
+                <img src={Home}  style={{marginLeft:'4px'}}/>
             </ListItemIcon>
             <ListItemText primary={text.content}  sx={{
                     //  opacity: open ? 1 : 0,
@@ -186,16 +169,21 @@ export default function MiniDrawer() {
                  }}/>
          < img src={openList ? drop_up_arrow_icon :  drop_down_arrow_icon} />  
           </ListItemButton>
-          <Collapse in={openList} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              {/* <StarBorder /> */}
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+       { text.subContent.length > 0 && text.subContent.map((subData)=>{
+        return(
+            <Collapse in={openList} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                <img src={Home}  />
+                  {/* <StarBorder /> */}
+                </ListItemIcon>
+                <ListItemText primary={subData.data} sx={{paddingLeft:'8px'}}/>
+              </ListItemButton>
+            </List>
+          </Collapse>
+        )
+       }) }
           </>
            }
           
