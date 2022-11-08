@@ -30,6 +30,7 @@ import lms_icon from '../assets/images/lms_icon.svg';
 import product_management_icon from '../assets/images/product_management_icon.svg';
 import programme_management_icon from '../assets/images/programme_management_icon.svg';
 import Collapse from '@mui/material/Collapse';
+import BulkUpload from '../screens/bulkUpload';
 
 
 const drawerWidth = 260;
@@ -216,7 +217,7 @@ export default function MiniDrawer() {
         </List>
        
       </Drawer>
-    
+    <BulkUpload/>
     </Box>
   );
 }
